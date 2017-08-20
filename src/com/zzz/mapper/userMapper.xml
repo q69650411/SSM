@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zzz.mapper.userMapper">
+  <resultMap id="BaseResultMap" type="com.zzz.pojo.user">
+    <id column="orderid" jdbcType="INTEGER" property="orderid" />
+    <result column="UserID" jdbcType="INTEGER" property="userid" />
+    <result column="id" jdbcType="INTEGER" property="id" />
+    <result column="num" jdbcType="INTEGER" property="num" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    orderid, UserID, id, num
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from orderitem
+    where orderid = #{orderid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from orderitem
+    where orderid = #{orderid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zzz.pojo.user">
+    insert into orderitem (orderid, UserID, id, 
+      num)
+    values (#{orderid,jdbcType=INTEGER}, #{userid,jdbcType=INTEGER}, #{id,jdbcType=INTEGER}, 
+      #{num,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zzz.pojo.user">
+    insert into orderitem
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="orderid != null">
+        orderid,
+      </if>
+      <if test="userid != null">
+        UserID,
+      </if>
+      <if test="id != null">
+        id,
+      </if>
+      <if test="num != null">
+        num,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="orderid != null">
+        #{orderid,jdbcType=INTEGER},
+      </if>
+      <if test="userid != null">
+        #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="num != null">
+        #{num,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zzz.pojo.user">
+    update orderitem
+    <set>
+      <if test="userid != null">
+        UserID = #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="id != null">
+        id = #{id,jdbcType=INTEGER},
+      </if>
+      <if test="num != null">
+        num = #{num,jdbcType=INTEGER},
+      </if>
+    </set>
+    where orderid = #{orderid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zzz.pojo.user">
+    update orderitem
+    set UserID = #{userid,jdbcType=INTEGER},
+      id = #{id,jdbcType=INTEGER},
+      num = #{num,jdbcType=INTEGER}
+    where orderid = #{orderid,jdbcType=INTEGER}
+  </update>
+  <select id="selectByname" parameterType="String" resultType="com.zzz.pojo.user">
+     select * from user where username=#{username}
+  </select>
+</mapper>
